@@ -13,7 +13,10 @@ CLIENT_SECRET = CREDENTIALS['instagram_secret']
 REQUEST_URI   = CREDENTIALS['root_uri']
 
 class QIS < Sinatra::Base
-  enable :sessions
+  use Rack::Session::Cookie, :key => 'rack.session',
+                             :path => '/',
+                             :expire_after => 2592000, # In seconds
+                             :secret => 'super_secret_secret'
   set :raise_errors, Proc.new { false }
   set :show_exceptions, false
   
